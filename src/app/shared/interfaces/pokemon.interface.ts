@@ -3,6 +3,5 @@
 export interface PokemonInterface {
     name: string;
     url: string;
-    //sprite: SpriteInterface;
     image: string;
 }

@@ -7,7 +7,7 @@ import { PokemonInterface } from '@app/shared/interfaces/pokemon.interface';
   template: `
   <div class="card">
     <div class="image">
-      <a [routerLink]="['/pokemon-abilities', pokemonInterface.name]">
+      <a [routerLink]="['/pokemon-abilities', 'overgrow']">
         hola 1.... <img
           [src]="pokemonInterface.image"
           [alt]="pokemonInterface.name"

@@ -4,6 +4,7 @@ import { HttpClient } from '@angular/common/http';
 import { PokemonInterface } from '@shared/interfaces/pokemon.interface'
 import { environment } from '@environments/environment';
 import { SpriteInterface } from '@shared/interfaces/sprite.interface';
+import { AbilityDetailInterface } from '../interfaces/ability-detail.interface';
 
 @Injectable({
   providedIn: 'root'
@@ -12,7 +13,7 @@ export class PokemonService {
 
   constructor(private http: HttpClient) {}
 
-  // searchPokemonByParams(offset = 0, limit = 50) {
+  // searchPokemon(offset = 0, limit = 50) {
   //   const filter = `${environment.baseUrlAPI}pokemon/?offset=${offset}&limit=${limit}`;
   //   let pokemonList: PokemonInterface[] = [];
     
@@ -32,20 +33,22 @@ export class PokemonService {
   //   return pokemonList;
   // }
 
-  searchPokemonByParams(offset = 0, limit = 0) {
+  searchPokemon(offset = 0, limit = 0) {
     const filter = `${environment.baseUrlAPI}pokemon/?offset=${offset}&limit=${limit}`;
     console.log('searchPokemonByParams');
     return this.http.get<PokemonInterface[]>(filter);
   }
 
-  getSpritePokemon(url: string) {
+  getDetailPokemon(url: string) {
     const filter = `${url}`;
-    console.log('getSpritePokemon');
-    return this.http.get<SpriteInterface>(filter);
+    console.log('getDetailPokemon');
+    return this.http.get(filter);
   }
 
-  // getAbilities(name: string) {
-  //   return this.http.get<PokemonInterface>(`${environment.baseUrlAPI}ability/${name}`);
-  // }
+  getDetailAbility(name: string) {
+    const filter = `${environment.baseUrlAPI}ability/${name}`;
+    console.log('+++++++++++++getDetailAbility --> ', filter);
+    return this.http.get(filter);
+  }
   
 }
