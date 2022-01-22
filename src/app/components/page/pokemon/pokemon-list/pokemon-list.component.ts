@@ -24,7 +24,6 @@ type RequestHead = {
   styleUrls: ['./pokemon-list.component.scss'],
 })
 export class PokemonListComponent implements OnInit {
-  //@Output() emisor = new EventEmitter();
   pokemonList: PokemonInterface[] = [];
   loaded: boolean;
 
@@ -128,7 +127,6 @@ export class PokemonListComponent implements OnInit {
         pokemon.abilities = res.abilities;
       }
       this.loaded = true;
-      //this.emisor.emit(this.pokemonList);
     });
   }
 }

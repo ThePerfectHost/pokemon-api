@@ -20,13 +20,6 @@ const routes: Routes = [
       ),
   },
   {
-    path: 'pokemon-abilities/:name',
-    loadChildren: () =>
-      import(
-        './components/page/pokemon/pokemon-abilities/pokemon-abilities.module'
-      ).then((m) => m.PokemonAbilitiesModule),
-  },
-  {
     path: '**',
     pathMatch: 'full',
     redirectTo: 'home',

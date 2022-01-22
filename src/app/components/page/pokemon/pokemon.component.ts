@@ -1,5 +1,12 @@
-import { Component, Input, ChangeDetectionStrategy, Output, EventEmitter, OnInit} from '@angular/core';
-import { AbilityDetailInterface } from '@app/shared/interfaces/ability-detail.interface';
+import {
+  Component,
+  Input,
+  ChangeDetectionStrategy,
+  Output,
+  EventEmitter,
+  OnInit,
+} from '@angular/core';
+import { AbilityDetailInterface } from '@app/shared/interfaces/pokemon.interface';
 import { PokemonInterface } from '@app/shared/interfaces/pokemon.interface';
 import { PokemonService } from '@shared/services/pokemon.service';
 import { Observable } from 'rxjs';
@@ -11,24 +18,25 @@ import { Observable } from 'rxjs';
 })
 export class PokemonComponent implements OnInit {
   @Input() pokemonInterface: PokemonInterface;
-  // @Output() emisorAbility = new EventEmitter();
   abilityDetail$: Observable<AbilityDetailInterface>;
-
-  abilityName: string;
-  abilityLoaded: boolean;
+  firstFlavorText: string;
 
   constructor(private pokemonSvc: PokemonService) {}
 
   ngOnInit(): void {
-    this.abilityLoaded = false;
+    this.firstFlavorText = '';
   }
-
 
   showAbility(name: string) {
-    console.log('LLEGOOOOOOOOOOOO --> ', name);
-    
+    this.firstFlavorText = '';
     this.abilityDetail$ = this.pokemonSvc.getDetailAbility(name);
-
   }
 
+  checkFlavorTextDuplicate(flavorText: string): boolean {
+    if (this.firstFlavorText === '') {
+      this.firstFlavorText = flavorText;
+      return true;
+    }
+    return false;
+  }
 }

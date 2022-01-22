@@ -2,13 +2,12 @@ import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { PokemonInterface } from '@shared/interfaces/pokemon.interface';
 import { environment } from '@environments/environment';
-import { AbilityDetailInterface } from '@shared/interfaces/ability-detail.interface';
+import { AbilityDetailInterface } from '@shared/interfaces/pokemon.interface';
 
 @Injectable({
   providedIn: 'root',
 })
 export class PokemonService {
-
   constructor(private http: HttpClient) {}
 
   searchPokemon(offset = 0, limit = 0) {
