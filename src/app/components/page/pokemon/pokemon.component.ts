@@ -1,33 +1,34 @@
-//import { Component, OnInit } from '@angular/core';
-import { Component, Input, ChangeDetectionStrategy } from '@angular/core';
+import { Component, Input, ChangeDetectionStrategy, Output, EventEmitter, OnInit} from '@angular/core';
+import { AbilityDetailInterface } from '@app/shared/interfaces/ability-detail.interface';
 import { PokemonInterface } from '@app/shared/interfaces/pokemon.interface';
+import { PokemonService } from '@shared/services/pokemon.service';
+import { Observable } from 'rxjs';
 
 @Component({
   selector: 'app-pokemon',
-  template: `
-  <div class="card">
-    <div class="image">
-      <a [routerLink]="['/pokemon-abilities', 'overgrow']">
-        hola 1.... <img
-          [src]="pokemonInterface.image"
-          [alt]="pokemonInterface.name"
-          class="card-img-top"
-        />
-      </a>
-    </div>
-    <div class="card-inner">
-      <div class="header">
-        <a [routerLink]="['/pokemon-abilities', pokemonInterface.name]">
-          <h2> hola 2.....{{ pokemonInterface.url }}</h2>
-        </a>
-        <h4 class="text-muted">hola 3.....{{ pokemonInterface.name }}</h4>
-        <small class="text-muted">hola 4....{{ pokemonInterface.image }}....</small>
-      </div>
-    </div>
-  </div>
-`,
-changeDetection: ChangeDetectionStrategy.OnPush,
+  templateUrl: './pokemon.component.html',
+  changeDetection: ChangeDetectionStrategy.OnPush,
 })
-export class PokemonComponent {
+export class PokemonComponent implements OnInit {
   @Input() pokemonInterface: PokemonInterface;
+  // @Output() emisorAbility = new EventEmitter();
+  abilityDetail$: Observable<AbilityDetailInterface>;
+
+  abilityName: string;
+  abilityLoaded: boolean;
+
+  constructor(private pokemonSvc: PokemonService) {}
+
+  ngOnInit(): void {
+    this.abilityLoaded = false;
+  }
+
+
+  showAbility(name: string) {
+    console.log('LLEGOOOOOOOOOOOO --> ', name);
+    
+    this.abilityDetail$ = this.pokemonSvc.getDetailAbility(name);
+
+  }
+
 }

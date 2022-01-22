@@ -1,11 +1,16 @@
 import { DOCUMENT } from '@angular/common';
-import { Component, HostListener, Inject, OnInit } from '@angular/core';
+import {
+  Component,
+  EventEmitter,
+  HostListener,
+  Inject,
+  OnInit,
+  Output,
+} from '@angular/core';
 import { ActivatedRoute, NavigationEnd, Router } from '@angular/router';
-import { AbilityInterface } from '@app/shared/interfaces/ability.interface';
-import { SpriteInterface } from '@app/shared/interfaces/sprite.interface';
 import { PokemonInterface } from '@shared/interfaces/pokemon.interface';
 import { PokemonService } from '@shared/services/pokemon.service';
-import { take, filter } from 'rxjs/operators';
+import { filter } from 'rxjs/operators';
 
 type RequestHead = {
   count: null;
@@ -19,7 +24,9 @@ type RequestHead = {
   styleUrls: ['./pokemon-list.component.scss'],
 })
 export class PokemonListComponent implements OnInit {
+  //@Output() emisor = new EventEmitter();
   pokemonList: PokemonInterface[] = [];
+  loaded: boolean;
 
   requestHead: RequestHead = {
     count: null,
@@ -43,6 +50,7 @@ export class PokemonListComponent implements OnInit {
   }
 
   ngOnInit(): void {
+    this.loaded = false;
     this.getPokes();
   }
 
@@ -69,7 +77,7 @@ export class PokemonListComponent implements OnInit {
   onScrollDown(): void {
     if (this.requestHead.next) {
       this.offset = this.offset + this.limit;
-      this.searchPokemonFromService();
+      this.getPokes();
     }
   }
 
@@ -89,22 +97,11 @@ export class PokemonListComponent implements OnInit {
   }
 
   private getPokes(): void {
-    this.route.queryParams.pipe(take(1)).subscribe((params) => {
-      console.log('Params->', params);
-      //this.query = params['q'];
-      this.searchPokemonFromService();
-      this.getDetailPokemonFromService('https://pokeapi.co/api/v2/pokemon/1');
-    });
-  }
-
-  private searchPokemonFromService(): void {
-    //console.log('query ->', this.query);
     console.log('offset ->', this.offset);
     console.log('limit ->', this.limit);
 
     this.pokemonSvc
       .searchPokemon(this.offset, this.limit)
-      .pipe(take(1))
       .subscribe((res: any) => {
         if (res?.results?.length) {
           this.pokemonList = [...this.pokemonList, ...res.results];
@@ -112,50 +109,26 @@ export class PokemonListComponent implements OnInit {
           this.requestHead.next = res.next;
           this.requestHead.previous = res.previous;
 
-          //     for (let i = 0; i < this.pokemonList.length; i++) {
-          //       let element = this.pokemonList[i];
-
-          //       this.pokemonSvc
-          //         .getDetailPokemon(element.url)
-          //         .subscribe((res: any) => {
-          //           if (res?.sprites) {
-          //             element.image = res.sprites.front_default;
-          //             console.log('res.sprites.front_default --> ',res.sprites.front_default);
-          //           } else {
-          //             element.image = '';
-          //           }
-          //           if(res?.sprites) {
-
-          //           } else {
-
-          //           }
-          //         });
-          //     }
+          for (let i = 0; i < this.pokemonList.length; i++) {
+            var element = this.pokemonList[i];
+            this.setDetail(element);
+          }
         } else {
           this.pokemonList = [];
         }
       });
   }
 
-  private getDetailPokemonFromService(url: string): void {
-
-    let sprites: SpriteInterface;
-    let abilities: AbilityInterface[];
-
-    this.pokemonSvc
-      .getDetailPokemon(url)
-      .pipe(take(1))
-      .subscribe((res: any) => {
-        if (res?.sprites) {
-          //console.log('res.sprites.front_default --> ', res.sprites.front_default);
-          sprites = res.sprites;
-          console.log('+++ sprites --> ', sprites);
-        }
-        if (res?.abilities?.length) {
-         // console.log('res.abilities --> ', res.abilities);
-          abilities = res.abilities;
-          console.log('abilities --> ', abilities);
-        }
-      });
+  private setDetail(pokemon: PokemonInterface): void {
+    this.pokemonSvc.getDetailPokemon(pokemon.url).subscribe((res: any) => {
+      if (res?.sprites) {
+        pokemon.sprites = res.sprites;
+      }
+      if (res?.abilities?.length) {
+        pokemon.abilities = res.abilities;
+      }
+      this.loaded = true;
+      //this.emisor.emit(this.pokemonList);
+    });
   }
 }

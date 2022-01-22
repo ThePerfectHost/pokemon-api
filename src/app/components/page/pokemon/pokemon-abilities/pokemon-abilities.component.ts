@@ -1,3 +1,5 @@
+
+
 import { Component, OnInit } from '@angular/core';
 import { Location } from '@angular/common';
 import { ActivatedRoute } from '@angular/router';
@@ -34,15 +36,14 @@ export class PokemonAbilitiesComponent implements OnInit {
   
       this.pokemonSvc
         .getDetailAbility(name)
-        .pipe(take(1))
         .subscribe((res: any) => {
           if (res?.flavor_text_entries) {
              console.log('flavor_text_entries --> ',res.flavor_text_entries);
           }
 
           //probando
-          this.abilityDetail.flavor_text = 'Ups GRASS moves in a pinch.';
-          this.abilityDetail.version_group = 'ruby-sapphire';
+          this.abilityDetail.name = 'Ups GRASS moves in a pinch.';
+          this.abilityDetail.name = 'ruby-sapphire';
           
 
         });
