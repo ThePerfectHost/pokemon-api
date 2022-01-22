@@ -5,7 +5,14 @@ const routes: Routes = [
   {
     path: '',
     pathMatch: 'full',
-    redirectTo: 'home',
+    redirectTo: 'check-in',
+  },
+  {
+    path: 'check-in',
+    loadChildren: () =>
+      import('./components/page/check-in/check-in.module').then(
+        (m) => m.CheckInModule
+      ),
   },
   {
     path: 'home',
@@ -22,7 +29,7 @@ const routes: Routes = [
   {
     path: '**',
     pathMatch: 'full',
-    redirectTo: 'home',
+    redirectTo: 'check-in',
   },
 ];
 
