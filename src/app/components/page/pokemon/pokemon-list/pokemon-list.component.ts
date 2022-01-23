@@ -35,10 +35,10 @@ export class PokemonListComponent implements OnInit {
     previous: null,
   };
 
-  search: '';
+  search: any;
   showGoUpButton = false;
   private offset = 0;
-  private limit = 20;
+  private limit = 2;
   private hideScrollHeight = 200;
   private showScrollHeight = 500;
 
@@ -52,8 +52,8 @@ export class PokemonListComponent implements OnInit {
   }
 
   ngOnInit(): void {
-    console.log('+++++++++ PokemonListComponent.ngOnInit', );
     this.loaded = false;
+    this.search = '';
     this.getPokes();
   }
 
@@ -86,7 +86,7 @@ export class PokemonListComponent implements OnInit {
 
   onScrollTop(): void {
     this.document.body.scrollTop = 0; // Safari
-    this.document.documentElement.scrollTop = 0; // Others
+    this.document.documentElement.scrollTop = 0; // otros
   }
 
   private onUrlChanged(): void {
@@ -113,13 +113,14 @@ export class PokemonListComponent implements OnInit {
     
     console.log('despues this.search ->', this.search);
 
-    // this.pokemonList = [];
+    this.pokemonList = [];
 
     this.pokemonSvc
       .searchPokemon(this.offset, this.limit)
       .subscribe((res: any) => {
-        if (res?.results?.length) {
-          this.pokemonList = [...this.pokemonList, ...res.results];
+        if (res?.results?.length) { 
+          const results = res.results;
+          this.pokemonList = [...this.pokemonList, ...results];
           this.requestHead.count = res.count;
           this.requestHead.next = res.next;
           this.requestHead.previous = res.previous;
@@ -130,6 +131,7 @@ export class PokemonListComponent implements OnInit {
           }
         } else {
           this.pokemonList = [];
+          this.loaded = true;
         }
       });
   }
