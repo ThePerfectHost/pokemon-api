@@ -38,7 +38,7 @@ export class PokemonListComponent implements OnInit {
   search: any;
   showGoUpButton = false;
   private offset = 0;
-  private limit = 2;
+  private limit = 20;
   private hideScrollHeight = 200;
   private showScrollHeight = 500;
 
@@ -101,19 +101,12 @@ export class PokemonListComponent implements OnInit {
 
  
   private getPokes(): void {
-    console.log('offset ->', this.offset);
-    console.log('limit ->', this.limit);
-    console.log('antes this.search ->', this.search);
     
     this.route.queryParams.pipe(take(1)).subscribe((params) => {
-      console.log('PokemonListComponent.getPokes.Params->', params);
-      console.log(params['q']);
       this.search = params['q'];
     });
     
-    console.log('despues this.search ->', this.search);
-
-    this.pokemonList = [];
+    console.log('this.search ->', this.search);
 
     this.pokemonSvc
       .searchPokemon(this.offset, this.limit)

@@ -9,6 +9,7 @@ import { PokemonInterface } from '@app/shared/interfaces/pokemon.interface';
 import { PokemonService } from '@shared/services/pokemon.service';
 import { Observable } from 'rxjs';
 
+
 @Component({
   selector: 'app-pokemon',
   templateUrl: './pokemon.component.html',

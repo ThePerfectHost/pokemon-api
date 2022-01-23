@@ -6,17 +6,19 @@ import { AppComponent } from './app.component';
 import { HeaderComponent } from './shared/components/header/header.component';
 import { SearchComponent } from './shared/components/search/search.component';
 import { HttpClientModule } from "@angular/common/http";
+// import { LetracapitalPipe } from './shared/pipes/letracapital.pipe';
 
 @NgModule({
   declarations: [
     AppComponent,
     HeaderComponent,
-    SearchComponent
+    SearchComponent,
+    // LetracapitalPipe,
   ],
   imports: [
     BrowserModule,
     AppRoutingModule,
-    HttpClientModule
+    HttpClientModule,
   ],
   providers: [],
   bootstrap: [AppComponent]
