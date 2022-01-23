@@ -4,13 +4,14 @@ import {
   EventEmitter,
   HostListener,
   Inject,
+  Input,
   OnInit,
   Output,
 } from '@angular/core';
 import { ActivatedRoute, NavigationEnd, Router } from '@angular/router';
 import { PokemonInterface } from '@shared/interfaces/pokemon.interface';
 import { PokemonService } from '@shared/services/pokemon.service';
-import { filter } from 'rxjs/operators';
+import { filter, take } from 'rxjs/operators';
 
 type RequestHead = {
   count: null;
@@ -24,6 +25,7 @@ type RequestHead = {
   styleUrls: ['./pokemon-list.component.scss'],
 })
 export class PokemonListComponent implements OnInit {
+
   pokemonList: PokemonInterface[] = [];
   loaded: boolean;
 
@@ -33,6 +35,7 @@ export class PokemonListComponent implements OnInit {
     previous: null,
   };
 
+  search: '';
   showGoUpButton = false;
   private offset = 0;
   private limit = 20;
@@ -49,6 +52,7 @@ export class PokemonListComponent implements OnInit {
   }
 
   ngOnInit(): void {
+    console.log('+++++++++ PokemonListComponent.ngOnInit', );
     this.loaded = false;
     this.getPokes();
   }
@@ -95,9 +99,21 @@ export class PokemonListComponent implements OnInit {
       });
   }
 
+ 
   private getPokes(): void {
     console.log('offset ->', this.offset);
     console.log('limit ->', this.limit);
+    console.log('antes this.search ->', this.search);
+    
+    this.route.queryParams.pipe(take(1)).subscribe((params) => {
+      console.log('PokemonListComponent.getPokes.Params->', params);
+      console.log(params['q']);
+      this.search = params['q'];
+    });
+    
+    console.log('despues this.search ->', this.search);
+
+    // this.pokemonList = [];
 
     this.pokemonSvc
       .searchPokemon(this.offset, this.limit)

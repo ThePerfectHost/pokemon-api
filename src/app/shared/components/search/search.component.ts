@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, EventEmitter, OnInit, Output } from '@angular/core';
 import { Router } from '@angular/router';
 
 @Component({
@@ -15,11 +15,9 @@ export class SearchComponent implements OnInit {
 
   onSearch(value: string) {
     if (value && value.length > 3) {
-      // this.router.navigate(['/home'], {
-      //   queryParams: { q: value },
-      // });
-      console.log('++++++++++++++++ onSearch', value);
-      //this.searchEmisor.emit(value);
+      this.router.navigate(['/pokemon-list'], {
+        queryParams: { q: value },
+      });
     }
   }
 }

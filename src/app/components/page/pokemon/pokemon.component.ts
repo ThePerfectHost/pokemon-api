@@ -2,8 +2,6 @@ import {
   Component,
   Input,
   ChangeDetectionStrategy,
-  Output,
-  EventEmitter,
   OnInit,
 } from '@angular/core';
 import { AbilityDetailInterface } from '@app/shared/interfaces/pokemon.interface';

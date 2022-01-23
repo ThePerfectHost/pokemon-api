@@ -10,8 +10,8 @@ import { HttpClientModule } from "@angular/common/http";
 @NgModule({
   declarations: [
     AppComponent,
-    // HeaderComponent,
-    // SearchComponent
+    HeaderComponent,
+    SearchComponent
   ],
   imports: [
     BrowserModule,
