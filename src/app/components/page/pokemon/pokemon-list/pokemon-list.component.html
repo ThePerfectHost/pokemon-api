@@ -2,7 +2,7 @@
 <div class="grid-layout" *ngIf="loaded && pokemonList">
   <div class="row" infinite-scroll (scrolled)="onScrollDown()">
     <div
-      class="col-xs-12 col-sm-6 col-md-4"
+      class="col-xs-12 col-sm-6 col-md-3"
       *ngFor="let pokemon of pokemonList"
     >
       <app-pokemon [pokemonInterface]="pokemon"></app-pokemon>
@@ -18,9 +18,10 @@
   <button
     [ngClass]="'no-hidden'"
     *ngIf="showGoUpButton"
-    class="btn btn-dark"
+    class="btn btn-primary btn-lg btn-block"
     (click)="onScrollTop()"
   >
     Ir Arriba
   </button>
 </div>
+

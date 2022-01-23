@@ -14,6 +14,7 @@ import { Observable } from 'rxjs';
 @Component({
   selector: 'app-pokemon',
   templateUrl: './pokemon.component.html',
+  styles : ['.blue-text { color: blue; } .center { text-align: center;}'],
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class PokemonComponent implements OnInit {

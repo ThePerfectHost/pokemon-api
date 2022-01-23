@@ -15,9 +15,11 @@ export class SearchComponent implements OnInit {
 
   onSearch(value: string) {
     if (value && value.length > 3) {
-      this.router.navigate(['/pokemon-list'], {
-        queryParams: { q: value },
-      });
+      // this.router.navigate(['/home'], {
+      //   queryParams: { q: value },
+      // });
+      console.log('++++++++++++++++ onSearch', value);
+      //this.searchEmisor.emit(value);
     }
   }
 }

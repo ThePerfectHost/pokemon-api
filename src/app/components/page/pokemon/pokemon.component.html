@@ -1,0 +1,41 @@
+<div class="card">
+  <div class="image">
+    <img
+      [src]="pokemonInterface.sprites.front_default"
+      [alt]="pokemonInterface.name"
+      class="card-img-top"
+    />
+  </div>
+  <div class="card-inner">
+    <div class="header">
+      <h2 class="blue-text">{{ pokemonInterface.name }}</h2>
+
+      <h5 class="text-muted">Habilidades:</h5>
+
+      <div *ngFor="let habilitie of pokemonInterface.abilities">
+        <div
+          title="Mostrar detalle de {{ habilitie.ability.name }}"
+          (click)="showAbility(habilitie.ability.name)"
+          class="btn btn-outline-primary btn-sm">
+          {{ habilitie.ability.name }}
+        </div>
+      </div>
+
+      <small class="text-muted" *ngIf="abilityDetail$ | async as ability">
+        <br/>
+        <strong>{{ ability.id }}&nbsp;-&nbsp;{{ ability.name }}</strong>
+
+        <div *ngFor="let flavor of ability.flavor_text_entries">
+          <div
+            *ngIf="
+              flavor.language.name === 'es' &&
+              checkFlavorTextDuplicate(flavor.flavor_text)
+            "
+          >
+            {{ flavor.flavor_text }}
+          </div>
+        </div>
+      </small>
+    </div>
+  </div>
+</div>
