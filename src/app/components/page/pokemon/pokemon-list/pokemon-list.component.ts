@@ -1,13 +1,5 @@
 import { DOCUMENT } from '@angular/common';
-import {
-  Component,
-  EventEmitter,
-  HostListener,
-  Inject,
-  Input,
-  OnInit,
-  Output,
-} from '@angular/core';
+import { Component, HostListener, Inject, OnInit } from '@angular/core';
 import { ActivatedRoute, NavigationEnd, Router } from '@angular/router';
 import { PokemonInterface } from '@shared/interfaces/pokemon.interface';
 import { PokemonService } from '@shared/services/pokemon.service';
@@ -25,7 +17,6 @@ type RequestHead = {
   styleUrls: ['./pokemon-list.component.scss'],
 })
 export class PokemonListComponent implements OnInit {
-
   pokemonList: PokemonInterface[] = [];
   loaded: boolean;
 
@@ -99,19 +90,17 @@ export class PokemonListComponent implements OnInit {
       });
   }
 
- 
   private getPokes(): void {
-    
     this.route.queryParams.pipe(take(1)).subscribe((params) => {
       this.search = params['q'];
     });
-    
+
     console.log('this.search ->', this.search);
 
     this.pokemonSvc
       .searchPokemon(this.offset, this.limit)
       .subscribe((res: any) => {
-        if (res?.results?.length) { 
+        if (res?.results?.length) {
           const results = res.results;
           this.pokemonList = [...this.pokemonList, ...results];
           this.requestHead.count = res.count;

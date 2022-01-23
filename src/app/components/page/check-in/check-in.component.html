@@ -1,6 +1,12 @@
 <header>
   <nav class="navbar navbar-expand-md navbar-dark fixed-top bg-dark">
     <a class="navbar-brand">Pok&eacute;<span class="text-danger">API</span></a>
+
+    <a class="nav-link">
+      <img class="pokemon-icono" src="../../../../pokebola.png" />
+      <small>Home</small>
+    </a>
+
     <button
       class="navbar-toggler"
       type="button"
@@ -14,50 +20,89 @@
     </button>
     <div class="collapse navbar-collapse" id="navbarCollapse">
       <ul class="navbar-nav mr-auto">
-        <li class="nav-item active">
-          
-        </li>
+        <li class="nav-item active"></li>
       </ul>
-      <div class="col-xs-12 col-sm-12 col-md-6">
-
-      </div>
+      <div class="col-xs-12 col-sm-12 col-md-6"></div>
     </div>
   </nav>
 </header>
 
-
-
-<div class="card-inner">
-    <div class="header">
-      <a [routerLink]="['/home']">
-        <h2>wena washoo</h2>
-      </a>
-      
+<body>
+  <div class="container" id="registration-form">
+    <div class="image"></div>
+    <div class="frm">
+      <h1>PokeAPI</h1>
+      <form [formGroup]="checkInForm" (ngSubmit)="onSubmit()">
+        <div class="form-group">
+          <label>Nombre:</label>
+          <input
+            type="text"
+            class="form-control"
+            formControlName="nombre"
+            placeholder="Ingrese su nombre"
+          />
+          <div *ngIf="control('nombre')?.errors?.['required']" class="error">
+            El nombre es requerido
+          </div>
+          <div *ngIf="control('nombre')?.errors?.['minlength']" class="error">
+            El nombre debe tener un m&iacute;nimo de 3 caracteres
+          </div>
+          <div *ngIf="control('nombre')?.errors?.['maxlength']" class="error">
+            El nombre debe tener un m&aacute;ximo de 30 caracteres
+          </div>
+          <div *ngIf="control('nombre')?.errors?.['pattern']" class="error">
+            El nombre debe ser solo letras
+          </div>
+        </div>
+        <div class="form-group">
+          <label>Apellido:</label>
+          <input
+            type="text"
+            class="form-control"
+            formControlName="apellido"
+            placeholder="Ingrese su apellido"
+          />
+          <div *ngIf="control('apellido')?.errors?.['required']" class="error">
+            El apellido es requerido
+          </div>
+          <div *ngIf="control('apellido')?.errors?.['minlength']" class="error">
+            El apellido debe tener un m&iacute;nimo de 3 caracteres
+          </div>
+          <div *ngIf="control('apellido')?.errors?.['maxlength']" class="error">
+            El apellido debe tener un m&aacute;ximo de 20 caracteres
+          </div>
+          <div *ngIf="control('apellido')?.errors?.['pattern']" class="error">
+            El apellido debe ser solo letras
+          </div>
+        </div>
+        <div class="form-group" id="show_hide_password">
+          <label>Edad:</label>
+          <input
+            type="text"
+            class="form-control"
+            formControlName="edad"
+            placeholder="Ingrese edad"
+          />
+          <div *ngIf="control('edad')?.errors?.['required']" class="error">
+            La edad es requerida
+          </div>
+          <div *ngIf="control('edad')?.errors?.['min']" class="error">
+            La edad m&iacute;nima es 6 a&ntilde;os
+          </div>
+          <div *ngIf="control('edad')?.errors?.['pattern']" class="error">
+            La edad debe ser solo n&uacute;meros
+          </div>
+        </div>
+        <div class="form-group">
+          <button
+            type="submit"
+            class="btn btn-success btn-lg"
+            [disabled]="checkInForm.invalid"
+          >
+            Submit
+          </button>
+        </div>
+      </form>
     </div>
   </div>
-
-  <body>
-    <div class="container" id="registration-form">
-      <div class="image"></div>
-        <div class="frm">
-            <h1>Sign up</h1>
-            <form>
-                <div class="form-group">
-                    <label for="username">Username:</label>
-                    <input type="text" class="form-control" id="username" placeholder="Enter username">
-                </div>
-                <div class="form-group">
-                    <label for="email">Email:</label>
-                    <input type="email" class="form-control" id="email" placeholder="Enter email">
-                </div>
-                <div class="form-group">
-                    <label for="pwd">Password:</label>
-                    <input type="password" class="form-control" id="pwd" placeholder="Enter password">
-                </div>
-                <div class="form-group">
-                    <button type="submit" class="btn btn-success btn-lg">Submit</button>
-                </div>
-            </form>
-        </div>
-    </div>
 </body>

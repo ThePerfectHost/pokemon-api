@@ -2,6 +2,11 @@ body {
   background-color: transparent;
 }
 
+.error {
+  color: red;
+  font-size: small;
+}
+
 #registration-form {
   max-width: 800px;
   margin: 120px auto;
@@ -14,6 +19,19 @@ body {
   width: 50%;
   background-size: cover;
   background-position: 50%;
+}
+
+.pokemon-icono {
+  background-image: url("../../../../pokebola.png");
+  height: 50px;
+  width: 41px;
+}
+
+.pokemon-logo {
+  background-image: url("../../../../pokemon_header.png");
+  margin-left: 50px;
+  height: 50px;
+  width: 150px;
 }
 
 #registration-form .frm {
